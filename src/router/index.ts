@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
     component: HomePage
   },
   {
-    path: '/message/:id',
+    path: '/action/:id',
     component: () => import('../views/ViewMessagePage.vue')
   }
 ]

@@ -22,11 +22,21 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { Webengage } from '@awesome-cordova-plugins/webengage';
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
+  document.addEventListener("deviceready", WebEngageInit, false);
 });
+
+function WebEngageInit(): void {
+  /**
+   Additional WebEngage options and callbacks to be
+   registered here before calling webengage.engage()
+   **/
+  Webengage.engage();
+}

@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Inbox</ion-title>
+        <ion-title>Hi ..</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -13,12 +13,12 @@
 
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Inbox</ion-title>
+          <ion-title size="large">Hi</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <ion-list>
-        <MessageListItem v-for="message in messages" :key="message.id" :message="message" />
+        <ActionItem v-for="action in actions" :key="action.id" :action="action" />
       </ion-list>
     </ion-content>
   </ion-page>
@@ -35,15 +35,16 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/vue';
-import MessageListItem from '@/components/MessageListItem.vue';
-import { getMessages, Message } from '@/data/messages';
+import ActionItem from '@/components/ActionItem.vue';
+import { getActions, Action } from '@/data/actions';
 import { ref } from 'vue';
 
-const messages = ref<Message[]>(getMessages());
+const actions = ref<Action[]>(getActions());
 
 const refresh = (ev: CustomEvent) => {
   setTimeout(() => {
     ev.detail.complete();
   }, 3000);
 };
+
 </script>
