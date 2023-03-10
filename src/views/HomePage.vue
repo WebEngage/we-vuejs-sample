@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Hi ..</ion-title>
+        <ion-title>WebEngage Ionic Capacitor</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -13,13 +13,24 @@
 
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Hi</ion-title>
+          <ion-title size="large">USER ANALYTICS</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <ion-list>
-        <ActionItem v-for="action in actions" :key="action.id" :action="action" />
+        <MessageListItem v-for="message in analytics" :key="message.id" :message="message" />
       </ion-list>
+
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">TRACK EVENTS</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-list>
+        <MessageListItem v-for="message in events" :key="message.id" :message="message" />
+      </ion-list>
+
     </ion-content>
   </ion-page>
 </template>
@@ -35,16 +46,16 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/vue';
-import ActionItem from '@/components/ActionItem.vue';
-import { getActions, Action } from '@/data/actions';
+import MessageListItem from '@/components/MessageListItem.vue';
+import { getAnalytics, ListItem , getEvents} from '@/data/messages';
 import { ref } from 'vue';
 
-const actions = ref<Action[]>(getActions());
+const analytics = ref<ListItem[]>(getAnalytics());
+const events = ref<ListItem[]>(getEvents());
 
 const refresh = (ev: CustomEvent) => {
   setTimeout(() => {
     ev.detail.complete();
   }, 3000);
 };
-
 </script>
