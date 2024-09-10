@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">we-vue-cap</string>
+    <string name="title_activity_main">we-vue-cap</string>
+    <string name="package_name">com.webengage.production</string>
+    <string name="custom_url_scheme">com.webengage.production</string>
+</resources>
