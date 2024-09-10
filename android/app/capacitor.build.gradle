@@ -9,7 +9,7 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-
+    implementation project(':we-cap-android-fcm')
 
 }
 apply from: "../../node_modules/cordova-plugin-webengage/src/android/WebEngagePlugin.gradle"
