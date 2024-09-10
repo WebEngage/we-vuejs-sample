@@ -8,6 +8,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.webengage.sdk.android.key" android:value="WEBENGAGE_LICENSE" />
+        <meta-data android:name="com.webengage.sdk.android.debug" android:value="true" />
+        <meta-data android:name="com.webengage.sdk.android.environment" android:value="us" />
+
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
