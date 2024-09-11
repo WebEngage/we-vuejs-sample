@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-
-    <!-- Buttons for Login, Logout, User Event, and User Profile -->
-    <div class="button-container">
-      <button @click="login">Login</button>
-      <button @click="logout">Logout</button>
-      <button @click="userEvent">User Event</button>
-      <button @click="userProfile">User Profile</button>
-    </div>
+    <h1>Analytics and Events</h1>
+    <AnalyticsList />
+    <EventsList />
   </div>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import { Webengage, WebengageUser } from '@awesome-cordova-plugins/webengage';
+
+import { Webengage, WebengageNotification, WebengagePush } from '@awesome-cordova-plugins/webengage';
 import { WEAndroidFCM } from 'we-cap-android-fcm';
+import AnalyticsList from './components/AnalyticsList.vue';
+import EventsList from './components/EventsList.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    AnalyticsList,
+    EventsList
   },
+
 
   mounted() {
     console.log('WebEngage: App has been mounted!');
@@ -31,6 +29,32 @@ export default {
 
   methods: {
     initializeApp() {
+
+      WebengagePush.onClick(function (deeplink, customData) {
+        alert("WebEngage: Push notification clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
+        // console.log("WebEngage: Push clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
+      });
+
+      WebengageNotification.onPrepared(function (inAppData) {
+        alert("WebEngage: InApp Prepared Callback Received, Data: " +JSON.stringify(inAppData) );
+        // console.log("WebEngage: InApp Prepared Callback Received, Data: " + JSON.stringify(inAppData));
+      });
+
+      WebengageNotification.onShown(function (inAppData) {
+        alert("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
+        // console.log("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
+      });
+
+      WebengageNotification.onDismiss(function (inAppData) {
+        alert("WebEngage: In-app dismissed with actionId: " + JSON.stringify(inAppData));
+        // console.log("WebEngage: In-app dismissed with actionId: "+ JSON.stringify(inAppData));
+      });
+
+      WebengageNotification.onClick(function (inAppData, actionId) {
+        alert('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: "+ JSON.stringify(inAppData) );
+        // console.log('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: " + JSON.stringify(inAppData));
+      });
+
       if (typeof Webengage !== 'undefined') {
         Webengage.engage(); // Initialize WebEngage
         console.log('WebEngage: WebEngage engaged');
@@ -45,31 +69,6 @@ export default {
         console.error('WebEngage: WEAndroidFCM not available');
       }
     },
-
-    login() {
-      // Add login logic here
-      console.log('WebEngage: Login clicked');
-      WebengageUser.login("Akshay");
-    },
-
-    logout() {
-      // Add logout logic here
-      console.log('WebEngage: Logout clicked');
-      WebengageUser.logout();
-
-    },
-
-    userEvent() {
-      // Add user event handling logic here
-      console.log('WebEngage:  Event clicked');
-      Webengage.track("Dummy");
-    },
-
-    userProfile() {
-      // Add user profile logic here
-      console.log('WebEngage: User Profile clicked')
-      WebengageUser.setAttribute('we_email', 'john@doe.com');
-    }
   }
 }
 </script>
