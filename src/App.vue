@@ -3,6 +3,8 @@
     <h1>Analytics and Events</h1>
     <AnalyticsList />
     <EventsList />
+    <UserOptIn />
+
   </div>
 </template>
 
@@ -13,12 +15,14 @@ import { Webengage, WebengageNotification, WebengagePush } from '@awesome-cordov
 import { WEAndroidFCM } from 'we-cap-android-fcm';
 import AnalyticsList from './components/AnalyticsList.vue';
 import EventsList from './components/EventsList.vue';
+import UserOptIn from './components/UserOptIn.vue';
 
 export default {
   name: 'App',
   components: {
     AnalyticsList,
-    EventsList
+    EventsList,
+    UserOptIn,
   },
 
 
@@ -31,28 +35,28 @@ export default {
     initializeApp() {
 
       WebengagePush.onClick(function (deeplink, customData) {
-        alert("WebEngage: Push notification clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
-        // console.log("WebEngage: Push clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
+        // alert("WebEngage: Push notification clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
+        console.log("WebEngage: Push clicked with deeplink: " + deeplink + " and customData: " + JSON.stringify(customData));
       });
 
       WebengageNotification.onPrepared(function (inAppData) {
-        alert("WebEngage: InApp Prepared Callback Received, Data: " +JSON.stringify(inAppData) );
-        // console.log("WebEngage: InApp Prepared Callback Received, Data: " + JSON.stringify(inAppData));
+        // alert("WebEngage: InApp Prepared Callback Received, Data: " +JSON.stringify(inAppData) );
+        console.log("WebEngage: InApp Prepared Callback Received, Data: " + JSON.stringify(inAppData));
       });
 
       WebengageNotification.onShown(function (inAppData) {
-        alert("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
-        // console.log("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
+        // alert("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
+        console.log("WebEngage: In-app shown with inAppData: " + JSON.stringify(inAppData));
       });
 
       WebengageNotification.onDismiss(function (inAppData) {
-        alert("WebEngage: In-app dismissed with actionId: " + JSON.stringify(inAppData));
-        // console.log("WebEngage: In-app dismissed with actionId: "+ JSON.stringify(inAppData));
+        // alert("WebEngage: In-app dismissed with actionId: " + JSON.stringify(inAppData));
+        console.log("WebEngage: In-app dismissed with actionId: "+ JSON.stringify(inAppData));
       });
 
       WebengageNotification.onClick(function (inAppData, actionId) {
-        alert('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: "+ JSON.stringify(inAppData) );
-        // console.log('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: " + JSON.stringify(inAppData));
+        // alert('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: "+ JSON.stringify(inAppData) );
+        console.log('WebEngage: In-app clicked with actionId: ' + actionId + " and inAppData: " + JSON.stringify(inAppData));
       });
 
       if (typeof Webengage !== 'undefined') {
