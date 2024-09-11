@@ -2,13 +2,21 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App" />
+
+    <!-- Buttons for Login, Logout, User Event, and User Profile -->
+    <div class="button-container">
+      <button @click="login">Login</button>
+      <button @click="logout">Logout</button>
+      <button @click="userEvent">User Event</button>
+      <button @click="userProfile">User Profile</button>
+    </div>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import { Webengage } from '@awesome-cordova-plugins/webengage';
-
+import { Webengage, WebengageUser } from '@awesome-cordova-plugins/webengage';
+import { WEAndroidFCM } from 'we-cap-android-fcm';
 
 export default {
   name: 'App',
@@ -16,37 +24,51 @@ export default {
     HelloWorld
   },
 
-  // Lifecycle hook called after the component is inserted into the DOM
   mounted() {
-    console.log('App has been mounted!');
+    console.log('WebEngage: App has been mounted!');
     this.initializeApp();
   },
 
   methods: {
-    // This method is called after the app is mounted
     initializeApp() {
-
       if (typeof Webengage !== 'undefined') {
         Webengage.engage(); // Initialize WebEngage
-        console.log('WebEngage engaged');
+        console.log('WebEngage: WebEngage engaged');
       } else {
-        console.error('WebEngage not available');
+        console.error('WebEngage: WebEngage not available');
       }
 
-      // if (typeof WEAndroidFCM !== 'undefined') {
-      //   WEAndroidFCM.updateToken();
-      //   console.log('WEAndroidFCM update token called');
-      // } else {
-      //   console.error('WEAndroidFCM not available');
-      // }
-      // You can add more setup logic here, such as API calls or other setup tasks
-      // Example: this.fetchInitialData();
+      if (typeof WEAndroidFCM !== 'undefined') {
+        WEAndroidFCM.updateToken();
+        console.log('WebEngage: WEAndroidFCM update token called');
+      } else {
+        console.error('WebEngage: WEAndroidFCM not available');
+      }
     },
 
-    // Example method for fetching initial data or setting up app-wide services
-    fetchInitialData() {
-      // Simulate fetching data or setting up app configurations
-      console.log('Fetching initial data...');
+    login() {
+      // Add login logic here
+      console.log('WebEngage: Login clicked');
+      WebengageUser.login("Akshay");
+    },
+
+    logout() {
+      // Add logout logic here
+      console.log('WebEngage: Logout clicked');
+      WebengageUser.logout();
+
+    },
+
+    userEvent() {
+      // Add user event handling logic here
+      console.log('WebEngage:  Event clicked');
+      Webengage.track("Dummy");
+    },
+
+    userProfile() {
+      // Add user profile logic here
+      console.log('WebEngage: User Profile clicked')
+      WebengageUser.setAttribute('we_email', 'john@doe.com');
     }
   }
 }
@@ -57,5 +79,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>
