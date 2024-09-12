@@ -32,20 +32,16 @@ const analytic = [
     id: 7
   },
   {
-    title: 'Set User Location',
+    title: 'Set Birth Date',
     id: 8
   },
   {
-    title: 'Set Birth Date',
+    title: 'Set Gender',
     id: 9
   },
   {
-    title: 'Set Gender',
-    id: 10
-  },
-  {
     title: 'Set Company',
-    id: 11
+    id: 10
   }
 ];
 

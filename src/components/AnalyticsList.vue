@@ -21,20 +21,67 @@
         <!-- First Name -->
         <div v-else-if="selectedAction === 2" class="form-group">
           <input v-model="firstName" placeholder="First Name" class="input-field" />
-          <button @click="updateFirstName" class="btn-primary">Update</button>
+          <button @click="updateFirstName" class="btn-primary">Update First Name</button>
         </div>
   
-        <!-- Other input fields go here... -->
+        <!-- Last Name -->
+        <div v-else-if="selectedAction === 3" class="form-group">
+          <input v-model="lastName" placeholder="Last Name" class="input-field" />
+          <button @click="updateLastName" class="btn-primary">Update Last Name</button>
+        </div>
   
+        <!-- Email -->
+        <div v-else-if="selectedAction === 4" class="form-group">
+          <input v-model="email" placeholder="Email" class="input-field" />
+          <button @click="updateEmail" class="btn-primary">Update Email</button>
+        </div>
+  
+        <!-- Hashed Email -->
+        <div v-else-if="selectedAction === 5" class="form-group">
+          <input v-model="hashedEmail" placeholder="Hashed Email" class="input-field" />
+          <button @click="updateHashedEmail" class="btn-primary">Update Hashed Email</button>
+        </div>
+  
+        <!-- Phone Number -->
+        <div v-else-if="selectedAction === 6" class="form-group">
+          <input v-model="phone" placeholder="Phone Number" class="input-field" />
+          <button @click="updatePhone" class="btn-primary">Update Phone</button>
+        </div>
+  
+        <!-- Hashed Phone Number -->
+        <div v-else-if="selectedAction === 7" class="form-group">
+          <input v-model="hashedPhone" placeholder="Hashed Phone" class="input-field" />
+          <button @click="updateHashedPhone" class="btn-primary">Update Hashed Phone</button>
+        </div>
+
+  
+        <!-- Birthdate -->
+        <div v-else-if="selectedAction === 9" class="form-group">
+          <input v-model="birthdate" placeholder="Birthdate (YYYY-MM-DD)" class="input-field" />
+          <button @click="updateBirthdate" class="btn-primary">Update Birthdate</button>
+        </div>
+  
+        <!-- Gender -->
+        <div v-else-if="selectedAction === 10" class="form-group">
+          <input v-model="gender" placeholder="Gender" class="input-field" />
+          <button @click="updateGender" class="btn-primary">Update Gender</button>
+        </div>
+  
+        <!-- Company -->
+        <div v-else-if="selectedAction === 11" class="form-group">
+          <input v-model="company" placeholder="Company" class="input-field" />
+          <button @click="updateCompany" class="btn-primary">Update Company</button>
+        </div>
       </div>
   
       <!-- List of Analytics Actions -->
       <div class="analytics-list">
-        <div 
+        <div
           class="analytics-item"
-          v-for="item in analytics" 
-          :key="item.id" 
-          @click="handleAction(item.id)">
+          v-for="item in analytics"
+          :key="item.id"
+          @click="handleAction(item.id)"
+        >
           {{ item.title }}
         </div>
       </div>
@@ -55,8 +102,17 @@
         userId: '',
         password: '',
         firstName: '',
+        lastName: '',
+        email: '',
+        hashedEmail: '',
+        phone: '',
+        hashedPhone: '',
+        location: '',
+        birthdate: '',
+        gender: '',
+        company: '',
         userName: '',
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     },
     mounted() {
@@ -68,16 +124,48 @@
         const action = this.analytics.find((item) => item.id === id);
         this.selectedAction = id;
         this.selectedActionTitle = action.title;
-        if (this.selectedAction === 1) {
-          this.logoutUser();
-        } else {
-          this.showInputForm = true;
-        }
+        this.showInputForm = true;
       },
       performLogin() {
         WebengageUser.login(this.userId, this.password);
         this.userName = this.userId; // assuming userId is the username
         this.isLoggedIn = true;
+        this.resetForm();
+      },
+      updateFirstName() {
+        WebengageUser.setAttribute('we_first_name', this.firstName);
+        this.resetForm();
+      },
+      updateLastName() {
+        WebengageUser.setAttribute('we_last_name', this.lastName);
+        this.resetForm();
+      },
+      updateEmail() {
+        WebengageUser.setAttribute('we_email', this.email);
+        this.resetForm();
+      },
+      updateHashedEmail() {
+        WebengageUser.setAttribute('we_hashed_email', this.hashedEmail);
+        this.resetForm();
+      },
+      updatePhone() {
+        WebengageUser.setAttribute('we_phone', this.phone);
+        this.resetForm();
+      },
+      updateHashedPhone() {
+        WebengageUser.setAttribute('we_hashed_phone', this.hashedPhone);
+        this.resetForm();
+      },
+      updateBirthdate() {
+        WebengageUser.setAttribute('we_birth_date', this.birthdate);
+        this.resetForm();
+      },
+      updateGender() {
+        WebengageUser.setAttribute('we_gender', this.gender);
+        this.resetForm();
+      },
+      updateCompany() {
+        WebengageUser.setAttribute('we_company', this.company);
         this.resetForm();
       },
       logoutUser() {
@@ -97,12 +185,20 @@
         this.userId = '';
         this.password = '';
         this.firstName = '';
-        // Reset other fields as needed
-      }
-    }
+        this.lastName = '';
+        this.email = '';
+        this.hashedEmail = '';
+        this.phone = '';
+        this.hashedPhone = '';
+        this.birthdate = '';
+        this.gender = '';
+        this.company = '';
+      },
+    },
   };
   </script>
-
+  
+  
 <style scoped>
 .analytics-container {
     margin: 20px auto;
