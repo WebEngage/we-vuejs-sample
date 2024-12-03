@@ -19,6 +19,23 @@ target 'App' do
   # Add your Pods here
 end
 
+target 'NotificationService' do
+  # use_frameworks!
+
+  # Uncomment the line below if the parent target also uses frameworks
+  # use_frameworks!
+  pod 'WEServiceExtension'
+  # Add other pods for the NotificationService target here
+end
+
+target 'ContentExtension' do
+  # use_frameworks!
+  pod 'WEContentExtension'
+end
+
+
 post_install do |installer|
   assertDeploymentTarget(installer)
 end
+
+

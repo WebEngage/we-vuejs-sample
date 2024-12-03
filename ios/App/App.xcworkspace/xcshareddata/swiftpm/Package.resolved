@@ -1,0 +1,24 @@
+{
+  "originHash" : "aec07b185fc78376c2d9728fd29a6b65adfafcc5b5029f3faef96840fca5e19c",
+  "pins" : [
+    {
+      "identity" : "wecontentextension",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WebEngage/WEContentExtension",
+      "state" : {
+        "branch" : "master",
+        "revision" : "297229a6c0efeb97644a0958956d8773b43ad333"
+      }
+    },
+    {
+      "identity" : "weserviceextension",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WebEngage/WEServiceExtension.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5ad712df5eb4b1b4436a3563ff6ada85f8828140"
+      }
+    }
+  ],
+  "version" : 3
+}

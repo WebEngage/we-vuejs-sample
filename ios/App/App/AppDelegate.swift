@@ -27,6 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        guard let rootViewController = window?.rootViewController else {
+                print("Root view controller not found")
+                return
+            }
+            if let bridgeViewController = findBridgeViewController(from: rootViewController) {
+                print("Found CAPBridgeViewController: \(bridgeViewController)")
+                bridgeViewController.bridge?.notificationRouter.pushNotificationHandler = self
+            } else {
+                print("CAPBridgeViewController not found")
+            }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -46,4 +56,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return ApplicationDelegateProxy.shared.application(application, continue: userActivity, restorationHandler: restorationHandler)
     }
 
+    // Recursive function to find CAPBridgeViewController
+    func findBridgeViewController(from viewController: UIViewController) -> CAPBridgeViewController? {
+        if let bridgeVC = viewController as? CAPBridgeViewController {
+            return bridgeVC
+        }
+        for child in viewController.children {
+            if let bridgeVC = findBridgeViewController(from: child) {
+                return bridgeVC
+            }
+        }
+        return nil
+    }
+}
+
+extension AppDelegate: NotificationHandlerProtocol {
+    func willPresent(notification: UNNotification) -> UNNotificationPresentationOptions {
+        print("WebEngage: willPresent")
+        return [.alert, .badge, .sound]
+    }
+    func didReceive(response: UNNotificationResponse) {
+        print("WebEngage: didReceive")
+    }
 }
