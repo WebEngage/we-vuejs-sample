@@ -2,9 +2,15 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { Webengage, WebengageNotification, WebengagePush } from '@awesome-cordova-plugins/webengage';
 import { WEAndroidFCM } from 'we-cap-android-fcm';
+import { addListeners, registerNotifications } from './PushNotification';
 // import { Webengage } from '@awesome-cordova-plugins/webengage';
 
 createApp(App).mount('#app')
+
+const initalizeCapPush = () => {
+    addListeners();
+    registerNotifications();
+}
 
 const initializeWebEngage = () => {
     WebengagePush.onClick(function (deeplink, customData) {
@@ -37,5 +43,6 @@ const initializeWebEngage = () => {
     WEAndroidFCM.updateToken(); // Initializes WebEngage Android FCM
 }
 document.addEventListener("deviceready", () => {
+    initalizeCapPush();
     initializeWebEngage();
 });
